@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 pacman -Syu
-pacman -S linux linux-headers sddm plasma-meta plasma-wayland-session sddm pipewire pipewire-pulse pipewire-alsa p7zip os-prober nmap nftables firewalld bluez bluez-utils aircrack-ng wireshark-qt android-tools android-udev make cups bitwarden dosfstools exfat-utils ettercap firefox flatpak gparted iio-sensor-proxy kde-applications-meta lvm2 make metasploit network-manager network-manager-applet reflector ruby python3 signal-desktop steam signify veracrypt vim wget qt5-base wpa-supplicant xdg-utils xdg-user-dirs wayland yt-dlp git libreoffice-fresh
+pacman -S linux linux-headers sddm plasma-meta plasma-wayland-session sddm pipewire pipewire-pulse pipewire-alsa p7zip os-prober nmap nftables firewalld bluez bluez-utils aircrack-ng wireshark-qt android-tools android-udev make cups bitwarden dosfstools exfat-utils ettercap firefox flatpak gparted iio-sensor-proxy kde-applications-meta gnupg lvm2 make metasploit network-manager network-manager-applet reflector ruby python3 signal-desktop steam signify veracrypt vim wget qt5-base wpa-supplicant xdg-utils xdg-user-dirs wayland yt-dlp git libreoffice-fresh
 
 # Build and install yay
 sudo git clone https://aur.archlinux.org/yay-git.git
