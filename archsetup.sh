@@ -22,7 +22,8 @@ else
 fi
 echo "What should the hostname be?"
 read USERHOSTNAME
-
+echo "What should the user account name be?"
+read USERACCOUNTNAME
 
 # Set up encrypted volume
 cryptsetup luksFormat $SYSNAME
@@ -60,7 +61,7 @@ ln -sf /user/share/zoneinfo/US/Central /etc/localtime
 hwclock --systohc
 
 # locale-gen
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo $USERHOSTNAME >> /etc/hostname
@@ -74,4 +75,14 @@ passwd
 pacman -S --needed - <paclist.txt
 
 # Setup mkinitcpio
-grep -F "HOOKS=(base udev autodetect modconf block filesystems" /etc/mkinitcpio.conf
+sed -i 's/HOOKS=(base udev autodetect modconf block filesystems/HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keymap/g' /etc/mkinitcpio.conf
+mkinitcpio -p linux
+
+#Grub Install
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+BOOTUUID=$(blkid | grep $SYSNAME | sed 's/" TYPE=.*//g' | sed 's/.*UUID="//g')
+sed -i "s/GRUB_CMDLINE_LINUX=../GRUB_CMDLINE_LINUX=QUOTEcryptdevice=$BOOTUUID:$CRYPTVOL root=/dev/$VGNAME/root mem_sleep_default=deep i915.enable_psr=QUOTE/g" /etc/default/grub
+sed -i 's/QUOTE/"/g' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
+systemctl enable fstrim.timer

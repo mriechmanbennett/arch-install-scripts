@@ -54,3 +54,4 @@ qt5-base
 yt-dlp
 libreoffice-fresh
 vlc
+util-linux
