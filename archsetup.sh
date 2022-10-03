@@ -33,7 +33,7 @@ cryptsetup open $SYSNAME $CRYPTVOL
 pvcreate /dev/mapper/$CRYPTVOL
 
 # Create volume group
-vgcreate $VGNAME /dev/mapper$CRYPTVOL
+vgcreate $VGNAME /dev/mapper/$CRYPTVOL
 lvcreate -L $ROOTSIZE $VGNAME -n root
 lvcreate -L $SWAPSIZE $VGNAME -n swap
 lvcreate -l 100%FREE $VGNAME -n home
