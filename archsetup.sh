@@ -19,9 +19,9 @@ echo "(i)ntel or (a)md?"
 read PROCESSOR
 if $PROCESSOR=="i"
 then
-	$PROCPAC="intel-ucode"
+	PROCPAC="intel-ucode"
 else
-	$PROCPAC="amd-ucode"
+	PROCPAC="amd-ucode"
 fi
 echo "What should the hostname be?"
 read USERHOSTNAME
