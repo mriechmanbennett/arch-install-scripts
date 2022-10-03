@@ -5,9 +5,12 @@ CRYPTVOL="cryptlvm"
 VGNAME="vg1"
 
 # Default partition sizes
-ROOTSIZE="100G"
-SWAPSIZE="32G"
+echo "How many GBs for root?"
+read ROOTSIZE
+echo "How many GBs for swap?"
+read SWAPSIZE
 # Home will always take all left over space
+
 echo "Please type the name of the boot partition"
 read BOOTNAME
 echo "Please type the name of the system encrypted partition"
@@ -81,8 +84,33 @@ mkinitcpio -p linux
 #Grub Install
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 BOOTUUID=$(blkid | grep $SYSNAME | sed 's/" TYPE=.*//g' | sed 's/.*UUID="//g')
-sed -i "s/GRUB_CMDLINE_LINUX=../GRUB_CMDLINE_LINUX=QUOTEcryptdevice=$BOOTUUID:$CRYPTVOL root=/dev/$VGNAME/root mem_sleep_default=deep i915.enable_psr=QUOTE/g" /etc/default/grub
+sed -i "s/GRUB_CMDLINE_LINUX=../GRUB_CMDLINE_LINUX=QUOTEcryptdevice=$BOOTUUID:$CRYPTVOL root=\/dev\/$VGNAME\/root mem_sleep_default=deep i915.enable_psr=QUOTE/g" /etc/default/grub
 sed -i 's/QUOTE/"/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
+# Enable some services
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable cups
 systemctl enable fstrim.timer
+
+# Create user
+useradd -mG wheel $USERACCOUNTNAME 
+echo "Enter your user account password for $USERACCOUNTNAME"
+passwd $USERACCOUNTNAME
+
+su $USERACCOUNTNAME
+# Build and install yay                                                               
+sudo git clone https://aur.archlinux.org/yay-git.git
+sudo chown -R $USER:$USER ./yay-git
+cd yay-git
+makepkg -si
+
+# Install needed AUR packages
+yay -S ttf-liberation ttf-ms-win10-auto protonvpn timeshift
+
+exit
+exit
+umount -a
+
+echo -e "Script has completed.\nUse visudo to uncomment the %wheel ALL=(ALL) ALL \nline for sudo access on the user account"
