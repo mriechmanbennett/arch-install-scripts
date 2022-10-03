@@ -17,7 +17,7 @@ echo "Please type the name of the system encrypted partition"
 read SYSNAME
 echo "(i)ntel or (a)md?"
 read PROCESSOR
-if $PROCESSOR=="i"
+if ["$PROCESSOR"=="i"]
 then
 	PROCPAC="intel-ucode"
 else
