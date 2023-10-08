@@ -46,7 +46,6 @@ metasploit
 ruby
 python3
 signal-desktop
-steam
 signify
 veracrypt
 wget
