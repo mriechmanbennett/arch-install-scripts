@@ -1,0 +1,11 @@
+AUR
+yay-git https://aur.archlinux.org/packages/yay-git
+responder https://aur.archlinux.org/packages/responder
+
+sec AUR
+autopsy https://aur.archlinux.org/packages/autopsy
+
+Sec non-aur
+searchsploit https://www.exploit-db.com/searchsploit
+testssl https://github.com/drwetter/testssl.sh.git
+wordlists https://github.com/kkrypt0nn/wordlists.git

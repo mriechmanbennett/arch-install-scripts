@@ -1,0 +1,12 @@
+nmap
+aircrack-ng
+wireshark-qt
+metasploit
+ettercap
+bind
+hashcat
+impacket
+sleuthkit
+hydra
+netcat
+kismet
