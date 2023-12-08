@@ -1,11 +1,6 @@
-# Easy Arch Install
+# Arch Install Scripts
 A collection of scripts to streamline my setup of new Arch Linux installs
 
-WARNING - These scripts are untested and unfinished and full of errors, use at your own risk
+None of the install scripts yet work, pls hold
 
-Order of operations:
-Run mirrorset.sh first
-Partition disk manually with one 300 MiB for the boot partition and the rest as a single partition to hold the encrypted lvm setup
-archsetup.sh will take the boot partition and the LUKS partition device names you want, and set things up from there
-Run archsetup.sh and answer the questions it asks you
-??? haven't finished archsetup.sh yet
+The archiso build script is close to default and currently works correctly.
