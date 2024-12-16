@@ -16,3 +16,4 @@ done
 # Script body
 mkdir -p build-files
 mkarchiso -v -w /tmp/archiso-build -o build-files/ profile/
+rm -r /tmp/archiso-build
